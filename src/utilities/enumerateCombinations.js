@@ -16,6 +16,7 @@ const successor = (T, n) => {
 }
 
 function* enumerateCombinations(n, k) {
+  if (n < k || n < 0 || k < 0) return;
   let T = Array.from({ length: k }, (_, i) => i);
 
   while (T !== undefined) {

@@ -19,7 +19,9 @@ function* generateCards() {
   }
 }
 
-function isSet(c1, c2, c3) {
+function isSet(cards) {
+  console.log(cards);
+  const [c1, c2, c3] = cards;
   for (let dim of [0, 1, 2, 3]) {
     const allTheSame =
       c1[dim] == c2[dim] &&
@@ -36,10 +38,8 @@ function isSet(c1, c2, c3) {
 }
 
 const countSets = (cards) => wu(enumerateCombinations(cards.length, 3))
-.filter(combination => combination.map(i => isSet(...cards[i])))
+.filter(combination => isSet(combination.map(i => cards[i])))
 .reduce(total => total + 1, 0)
-
-
 
 function randomInt(m) {
   return Math.floor(Math.random() * m);
@@ -64,7 +64,3 @@ function averageSetsOf(n) {
 
   return totalSets / sampleSize;
 }
-
-// for (let i = 0; i <= 10; i++) {
-//   console.log(averageSetsOf(i));
-// }
