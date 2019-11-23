@@ -19,9 +19,7 @@ function* generateCards() {
   }
 }
 
-function isSet(cards) {
-  console.log(cards);
-  const [c1, c2, c3] = cards;
+function isSet(c1, c2, c3) {
   for (let dim of [0, 1, 2, 3]) {
     const allTheSame =
       c1[dim] == c2[dim] &&
@@ -38,7 +36,8 @@ function isSet(cards) {
 }
 
 const countSets = (cards) => wu(enumerateCombinations(cards.length, 3))
-.filter(combination => isSet(combination.map(i => cards[i])))
+.filter(combination => isSet(...combination.map(i => cards[i])))
+.tap(console.log)
 .reduce(total => total + 1, 0)
 
 function randomInt(m) {
@@ -48,15 +47,15 @@ function randomInt(m) {
 function randomCombination(n, k) {
   const max = choose(n, k);
   const rank = randomInt(max);
-  const combination = unrankCombination(rank);
+  const combination = unrankCombination(n, k, rank);
   return combination;
 }
 
 /**
  * Returns the average number of sets for a given amount of cards
- * @param {number} n
+ * @param {number} n size of the tableau
  */
-function averageSetsOf(n) {
+export function averageNumberOfSets(n) {
   const sampleSize = 100;
   const totalSets = wu(Array.from({ length: sampleSize }, () => randomCombination(81, n)))
   .map(tableau => countSets(tableau.map(i => deck[i])))
