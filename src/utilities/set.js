@@ -1,7 +1,7 @@
 import wu from 'wu'
 import choose from './choose'
 import unrankCombination from './unrankCombination'
-import enumerateCombinations from './enumerateCombinations'
+import countSets from './countSets'
 
 const nums = [0, 1, 2];
 
@@ -18,27 +18,6 @@ function* generateCards() {
     }
   }
 }
-
-function isSet(c1, c2, c3) {
-  for (let dim of [0, 1, 2, 3]) {
-    const allTheSame =
-      c1[dim] == c2[dim] &&
-      c1[dim] == c3[dim];
-    const allDifferent =
-      c1[dim] != c2[dim] &&
-      c1[dim] != c3[dim];
-
-    if (!allTheSame && !allDifferent) {
-      return false;
-    }
-  }
-  return true;
-}
-
-const countSets = (cards) => wu(enumerateCombinations(cards.length, 3))
-.filter(combination => isSet(...combination.map(i => cards[i])))
-.tap(console.log)
-.reduce(total => total + 1, 0)
 
 function randomInt(m) {
   return Math.floor(Math.random() * m);
