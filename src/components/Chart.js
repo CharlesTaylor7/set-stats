@@ -2,24 +2,29 @@ import React from 'react';
 import { Chart as RChart } from 'react-charts'
 
 import "./Chart.css";
-import { averageNumberOfSets } from '../utilities/set';
-import choose from '../utilities/choose';
+import { averageNumberOfSets, randomTrial } from '../utilities/set';
 
-const setStats = Array.from(
-  { length: 12 },
+const setsPerTableSize = () => Array.from(
+  { length: 20 },
   (_, n) => [n, averageNumberOfSets(n)]
 );
 
-const moreData = Array.from(
-  { length: 81 },
-  (_, k) => [k, choose(81, k)]
-)
+const trials = Array.from(
+  { length: 10000 },
+  () => randomTrial(12)
+);
+const o = [];
+for(let t of trials) {
+  o[t] = (o[t] || 0) + 1
+}
+
+const setsPerOrdinaryTable = o.map((v, i) => [i, v])
 
 const Chart = () => {
   const data = React.useMemo(
     () => [
-      { data: setStats },
-      { data: moreData },
+      { data: setsPerOrdinaryTable },
+      // { data: moreData },
     ],
     []
   )

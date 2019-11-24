@@ -33,7 +33,7 @@ test('tableau of 3 cards that is a set', () => {
   ])).toBe(1)
 })
 
-fit('tableau of 5 cards with 2 different sets', () => {
+test('tableau of 5 cards with 2 different sets', () => {
   expect(countSets([
     [0, 1, 2, 2],
     [1, 1, 0, 0],

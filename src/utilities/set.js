@@ -30,15 +30,18 @@ function randomCombination(n, k) {
   return combination;
 }
 
+export const randomTrial = (n) => countSets(
+  randomCombination(81, n)
+  .map(i => deck[i])
+)
+
 /**
  * Returns the average number of sets for a given amount of cards
  * @param {number} n size of the tableau
  */
-export function averageNumberOfSets(n) {
-  const sampleSize = 100;
-  const totalSets = wu(Array.from({ length: sampleSize }, () => randomCombination(81, n)))
-  .map(tableau => countSets(tableau.map(i => deck[i])))
-  .reduce(total => total + 1, 0)
+export function averageNumberOfSets(n, sampleSize = 1000) {
+  const totalSets = wu(Array.from({ length: sampleSize }, () => randomTrial(n)))
+  .reduce((total, acc) => total + acc, 0)
 
   return totalSets / sampleSize;
 }

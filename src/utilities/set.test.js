@@ -1,4 +1,4 @@
-import { deck } from "./set"
+import { deck, averageNumberOfSets } from "./set"
 
 test("deck", () => {
   expect(deck).toHaveLength(81);
