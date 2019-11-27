@@ -1,4 +1,7 @@
-import countSets from "./countSets"
+import countSetsFromCardRanks from './countSetsFromCardRanks';
+import { rankCard } from './set';
+
+const countSets = cards => countSetsFromCardRanks( cards.map(rankCard));
 
 test('empty tableau has no sets', () => {
   expect(countSets([])).toBe(0)

@@ -1,11 +1,15 @@
 import wu from 'wu'
 import choose from './choose'
 import unrankCombination from './unrankCombination'
-import countSets from './countSets'
+import countSets from './countSetsFromCardRanks'
 
 const nums = [0, 1, 2];
 
 export const deck = Array.from(generateCards());
+
+export const rankCard = card => wu(card).reduce((acc, next) => 3 * acc + next, 0);
+
+export const unrankCard = index => deck[index];
 
 function* generateCards() {
   for (let q1 of nums) {
@@ -30,10 +34,7 @@ function randomCombination(n, k) {
   return combination;
 }
 
-export const randomTrial = (n) => countSets(
-  randomCombination(81, n)
-  .map(i => deck[i])
-)
+export const randomTrial = (n) => countSets(randomCombination(81, n))
 
 /**
  * Returns the average number of sets for a given amount of cards
