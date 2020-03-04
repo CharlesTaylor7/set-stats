@@ -11,7 +11,7 @@ const choose = (n, k) => {
       for (let k = 1; k < m / 2; k++) {
         P[m][k] = P[m-1][k-1] + P[m-1][k];
       }
-      if (m % 2 == 0) {
+      if (m % 2 === 0) {
         let k = m / 2;
         P[m][k] = P[m-1][k - 1] + P[m-1][k - 1];
       }
